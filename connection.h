@@ -18,5 +18,5 @@
 #define _connection_h
 #include <mysql.h>
 
-void configure_connection(MYSQL *conn, const char* name);
+void configure_connection(MYSQL * conn, const char *name);
 #endif

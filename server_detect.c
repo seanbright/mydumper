@@ -20,52 +20,56 @@
 #include <string.h>
 #include "server_detect.h"
 
-int detect_server(MYSQL *conn) {
-	pcre *re= NULL;
+int detect_server(MYSQL * conn)
+{
+	pcre *re = NULL;
 	const char *error;
 	int erroroffset;
-	int ovector[9]= {0};
+	int ovector[9] = { 0 };
 	int rc;
-	const char* db_version= mysql_get_server_info(conn);
+	const char *db_version = mysql_get_server_info(conn);
 
-	re= pcre_compile(DETECT_MYSQL_REGEX, 0, &error, &erroroffset, NULL);
+	re = pcre_compile(DETECT_MYSQL_REGEX, 0, &error, &erroroffset, NULL);
 	if (!re) {
 		g_critical("Regular expression fail: %s", error);
 		exit(EXIT_FAILURE);
 	}
 
-	rc = pcre_exec(re, NULL, db_version, strlen(db_version), 0, 0, ovector, 9);
+	rc = pcre_exec(re, NULL, db_version, strlen(db_version), 0, 0, ovector,
+		       9);
 	pcre_free(re);
 
 	if (rc > 0) {
 		return SERVER_TYPE_MYSQL;
 	}
 
-	re= pcre_compile(DETECT_DRIZZLE_REGEX, 0, &error, &erroroffset, NULL);
+	re = pcre_compile(DETECT_DRIZZLE_REGEX, 0, &error, &erroroffset, NULL);
 	if (!re) {
 		g_critical("Regular expression fail: %s", error);
 		exit(EXIT_FAILURE);
 	}
 
-	rc = pcre_exec(re, NULL, db_version, strlen(db_version), 0, 0, ovector, 9);
- 	pcre_free(re);
+	rc = pcre_exec(re, NULL, db_version, strlen(db_version), 0, 0, ovector,
+		       9);
+	pcre_free(re);
 
 	if (rc > 0) {
 		return SERVER_TYPE_DRIZZLE;
 	}
 
-	re= pcre_compile(DETECT_MARIADB_REGEX, 0, &error, &erroroffset, NULL);
-        if (!re) {
-                g_critical("Regular expression fail: %s", error);
-                exit(EXIT_FAILURE);
-        }
+	re = pcre_compile(DETECT_MARIADB_REGEX, 0, &error, &erroroffset, NULL);
+	if (!re) {
+		g_critical("Regular expression fail: %s", error);
+		exit(EXIT_FAILURE);
+	}
 
-        rc = pcre_exec(re, NULL, db_version, strlen(db_version), 0, 0, ovector, 9);
-        pcre_free(re);
+	rc = pcre_exec(re, NULL, db_version, strlen(db_version), 0, 0, ovector,
+		       9);
+	pcre_free(re);
 
-        if (rc > 0) {
-                return SERVER_TYPE_MYSQL;
-        }
+	if (rc > 0) {
+		return SERVER_TYPE_MYSQL;
+	}
 
 	return SERVER_TYPE_UNKNOWN;
 }

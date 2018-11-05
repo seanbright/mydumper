@@ -24,9 +24,9 @@
 enum job_type { JOB_SHUTDOWN, JOB_RESTORE };
 
 struct configuration {
-	GAsyncQueue* queue;
-	GAsyncQueue* ready;
-	GMutex* mutex;
+	GAsyncQueue *queue;
+	GAsyncQueue *ready;
+	GMutex *mutex;
 	int done;
 };
 
@@ -37,7 +37,7 @@ struct thread_data {
 
 struct job {
 	enum job_type type;
-        void *job_data;
+	void *job_data;
 	struct configuration *conf;
 };
 

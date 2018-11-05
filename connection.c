@@ -31,9 +31,10 @@ extern gboolean ssl;
 #endif
 extern guint compress_protocol;
 
-void configure_connection(MYSQL *conn, const char *name) {
+void configure_connection(MYSQL * conn, const char *name)
+{
 	if (defaults_file != NULL) {
-		mysql_options(conn,MYSQL_READ_DEFAULT_FILE,defaults_file);
+		mysql_options(conn, MYSQL_READ_DEFAULT_FILE, defaults_file);
 	}
 	mysql_options(conn, MYSQL_READ_DEFAULT_GROUP, name);
 
@@ -48,7 +49,7 @@ void configure_connection(MYSQL *conn, const char *name) {
 		i = SSL_MODE_DISABLED;
 	}
 
-	mysql_ssl_set(conn,key,cert,ca,capath,cipher);
-	mysql_options(conn,MYSQL_OPT_SSL_MODE,&i);
+	mysql_ssl_set(conn, key, cert, ca, capath, cipher);
+	mysql_options(conn, MYSQL_OPT_SSL_MODE, &i);
 #endif
 }

@@ -2,7 +2,8 @@
 #include <unistd.h>
 #include "getPassword.h"
 
-char* passwordPrompt(void) {
+char *passwordPrompt(void)
+{
 	char *password;
 	password = getpass("Enter MySQL Password: ");
 
