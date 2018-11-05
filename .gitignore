@@ -1,0 +1,11 @@
+CMakeCache.txt
+CMakeFiles/
+Makefile
+cmake_install.cmake
+config.h
+docs/CMakeFiles/
+docs/Makefile
+docs/cmake_install.cmake
+mydumper
+myloader
+
