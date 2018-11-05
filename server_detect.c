@@ -1,4 +1,4 @@
-/* 
+/*
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
     the Free Software Foundation, either version 3 of the License, or
@@ -47,7 +47,7 @@ int detect_server(MYSQL *conn) {
 		exit(EXIT_FAILURE);
 	}
 
-	rc = pcre_exec(re, NULL, db_version, strlen(db_version), 0, 0, ovector, 9);     
+	rc = pcre_exec(re, NULL, db_version, strlen(db_version), 0, 0, ovector, 9);
  	pcre_free(re);
 
 	if (rc > 0) {

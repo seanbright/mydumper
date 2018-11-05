@@ -76,7 +76,7 @@ static void finalize(GSource *source)
 	g_free(signal_source->data);
 
 }
-static GSourceFuncs SourceFuncs = 
+static GSourceFuncs SourceFuncs =
 {
 	.prepare  = prepare,
 	.check    = check,

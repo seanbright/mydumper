@@ -1,4 +1,4 @@
-/* 
+/*
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
     the Free Software Foundation, either version 3 of the License, or
@@ -511,14 +511,14 @@ void restore_data(MYSQL *conn, char *database, char *table, const char *filename
 		g_free(query);
 	}
 
-	
+
 	if (!is_schema)
 		mysql_query(conn, "START TRANSACTION");
 
 	while (eof == FALSE) {
 		if (read_data(infile, is_compressed, data, &eof)) {
 			// Search for ; in last 5 chars of line
-			if (g_strrstr(&data->str[data->len >= 5 ? data->len - 5 : 0], ";\n")) { 
+			if (g_strrstr(&data->str[data->len >= 5 ? data->len - 5 : 0], ";\n")) {
 				if (mysql_real_query(conn, data->str, data->len)) {
 					g_critical("Error restoring %s.%s from file %s: %s", db ? db : database, table, filename, mysql_error(conn));
 					errors++;
@@ -553,7 +553,7 @@ void restore_data(MYSQL *conn, char *database, char *table, const char *filename
 		fclose(infile);
 	} else {
 		gzclose((gzFile)infile);
-	}	
+	}
 	return;
 }
 
